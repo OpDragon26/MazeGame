@@ -2,7 +2,7 @@ import os
 import variables
 
 def createEmpty(size):
-    map = [[" " for j in range(size)] for i in range(size)]
+    map = [["#" for j in range(size)] for i in range(size)]
     for i in range(size):
         map[0][i] = "+"
         map[size - 1][i] = "+"
@@ -23,3 +23,8 @@ def turn(direction,turn):
     if direction > 3:
         return 0
     return direction
+
+def update(map):
+    mapPrint = createMapPrint(map)
+    clear(1)
+    print(mapPrint)
