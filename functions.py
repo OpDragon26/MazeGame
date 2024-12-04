@@ -2,6 +2,8 @@ import os
 
 clears = ("cls","clear")
 
+replaceFrom = ()
+
 def createEmpty(size):
     map = [["#" for j in range(size)] for i in range(size)]
     for i in range(size):
@@ -18,12 +20,7 @@ def clear(osClear): # 0 - windows, 1 - linux
     os.system(clears[osClear])
 
 def turn(direction,turn):
-    direction += turn
-    if direction < 0:
-        return 3
-    if direction > 3:
-        return 0
-    return direction
+    return (direction + turn + 4) % 4
 
 def update(map):
     mapPrint = createMapPrint(map)

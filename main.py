@@ -2,36 +2,55 @@ import functions
 import random
 from pynput.keyboard import Key, Listener
 
-directionOffsets = ((-2,0),(0,2),(2,0),(0,2)) # (y,x)
-directOffsets = ((-1,0),(0,1),(1,0),(0,1)) # (y,x)
+directionOffsets = ((-2,0),(0,2),(2,0),(0,-2)) # (y,x)
+directOffsets = ((-1,0),(0,1),(1,0),(0,-1)) # (y,x)
 
-size = 9 # must be odd
+size = 51 # must be odd
 
 map = functions.createEmpty(size)
 
-generatorPosition = [2,2] # y,x
-generatorDirection = random.randint(0,3) # from 0 to 3 clockwise, from the top
+position = [2,2] # y,x
+direction = random.randint(0,3) # from 0 to 3 clockwise, from the top
 
-map[generatorPosition[0]][generatorPosition[1]] = " "
+map[position[0]][position[1]] = "."
 
 while True:
-    if map[generatorPosition[0] + directionOffsets[generatorDirection][0]][generatorPosition[1] + directionOffsets[generatorDirection][1]] == "#":
-        map[generatorPosition[0] + directionOffsets[generatorDirection][0]][generatorPosition[1] + directionOffsets[generatorDirection][1]] = " "
-        map[generatorPosition[0] + directOffsets[generatorDirection][0]][generatorPosition[1] + directOffsets[generatorDirection][1]] = " "
+    for i in range(4):
+        if map[position[0] + directionOffsets[direction][0]][position[1] + directionOffsets[direction][1]] == "#":
+            map[position[0] + directionOffsets[direction][0]][position[1] + directionOffsets[direction][1]] = "."
+            map[position[0] + directOffsets[direction][0]][position[1] + directOffsets[direction][1]] = "."
 
-    break 
+            position[0] += directionOffsets[direction][0]
+            position[1] += directionOffsets[direction][1]
 
-functions.update(map)
+            direction = functions.turn(direction,random.randint(-1,1))
 
-def on_press(key):
-    if key == Key.down:
-        pass
-         
-    if key == Key.esc: 
-        return False
- 
-with Listener(on_press=on_press) as listener:
-    listener.join()
+            break
+        else:
+            direction = functions.turn(direction,1)
+    else:
+        wayBack = [map[position[0] + directOffsets[i][0]][position[1] + directOffsets[i][1]] == "." for i in range(4)].index(True)
+        map[position[0]][position[1]] = ":"
+        map[position[0] + directOffsets[wayBack][0]][position[1] + directOffsets[wayBack][1]] = ":"
+
+        position[0] += directionOffsets[wayBack][0]
+        position[1] += directionOffsets[wayBack][1]
+    
+    if position == [2,2]:
+        break 
+
+print(functions.createMapPrint(map))
+
+if False:
+    def on_press(key):
+        if key == Key.down:
+            pass
+            
+        if key == Key.esc: 
+            return False
+    
+    with Listener(on_press=on_press) as listener:
+        listener.join()
 
     
     
