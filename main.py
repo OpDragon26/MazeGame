@@ -2,14 +2,24 @@ import functions
 import random
 from pynput.keyboard import Key, Listener
 from copy import deepcopy as copy
+import time
 
 directionOffsets = ((-2,0),(0,2),(2,0),(0,-2)) # (y,x)
 directOffsets = ((-1,0),(0,1),(1,0),(0,-1)) # (y,x)
+sizes = (9,15,21,25,31,35,45)
 
-try:
-    size = int(input("Input the size of the maze (must be odd and above 9): ")) # must be odd
-except:
-    size = 21
+while True:
+    difficulty = int(input("Enter difficulty (1-7): "))
+    if difficulty == 0:
+        size = int(input("Enter custom size: "))
+        break
+    elif difficulty > 0 and difficulty < 8:
+        size = sizes[difficulty - 1]
+        break
+    else:
+        print("\nDifficulty outside given range.")
+
+
 
 map = functions.createEmpty(size)
 
@@ -21,6 +31,8 @@ highestDistance = 0
 furthestPoint = [2,2]
 
 map[position[0]][position[1]] = "."
+
+startTime = time.time()
 
 while True:
     for i in range(4):
@@ -67,6 +79,7 @@ def on_press(key):
     global map
     global position
     global furthestPoint
+    global difficulty
 
     if key == Key.down:
         if map[position[0] + 1][position[1]] in [" ","⬤"]:
@@ -101,7 +114,7 @@ def on_press(key):
     
     if position == furthestPoint:
         functions.update(map)
-        print("\n Congratulations, you successfully completed the maze! :D")
+        print(f"\n Congratulations, you completed a difficulty {difficulty} maze in {str(time.time() - startTime)[:4]} seconds! :D")
         return False
     
 with Listener(on_press = on_press) as listener:

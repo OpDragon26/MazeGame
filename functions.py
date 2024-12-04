@@ -1,5 +1,6 @@
 import os
 
+system = 1
 clears = ("cls","clear")
 
 replaceFrom = (".",":","+","#","F")
@@ -25,7 +26,7 @@ def turn(direction,turn):
 
 def update(map):
     mapPrint = createMapPrint(map)
-    clear(1)
+    clear(system)
     print(mapPrint)
 
 def replace(thing, rfrom, rto):
