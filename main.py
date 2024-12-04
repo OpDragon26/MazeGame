@@ -6,7 +6,10 @@ from copy import deepcopy as copy
 directionOffsets = ((-2,0),(0,2),(2,0),(0,-2)) # (y,x)
 directOffsets = ((-1,0),(0,1),(1,0),(0,-1)) # (y,x)
 
-size = int(input("Input the size of the maze (must be odd and above 9): ")) # must be odd
+try:
+    size = int(input("Input the size of the maze (must be odd and above 9): ")) # must be odd
+except:
+    size = 21
 
 map = functions.createEmpty(size)
 
@@ -54,18 +57,55 @@ while True:
 
 map = functions.replaceMap(map)
 
-functions.update(map)
+printedMap = copy(map)
 
-if False:
-    def on_press(key):
-        if key == Key.down:
-            pass
+printedMap[2][2] = "🯅"
+functions.update(printedMap)
+
+def on_press(key):
+    global printedMap
+    global map
+    global position
+    global furthestPoint
+
+    if key == Key.down:
+        if map[position[0] + 1][position[1]] in [" ","⬤"]:
+            printedMap = copy(map)
+            position[0] += 1
+            printedMap[position[0]][position[1]] = "🯅"
+        functions.update(printedMap)
+
+    if key == Key.up:
+        if map[position[0] - 1][position[1]] in [" ","⬤"]:
+            printedMap = copy(map)
+            position[0] -= 1
+            printedMap[position[0]][position[1]] = "🯅"
+        functions.update(printedMap)
+
+    if key == Key.right:
+        if map[position[0]][position[1] + 1] in [" ","⬤"]:
+            printedMap = copy(map)
+            position[1] += 1
+            printedMap[position[0]][position[1]] = "🯅"
+        functions.update(printedMap)
+
+    if key == Key.left:
+        if map[position[0]][position[1] - 1] in [" ","⬤"]:
+            printedMap = copy(map)
+            position[1] -= 1
+            printedMap[position[0]][position[1]] = "🯅"
+        functions.update(printedMap)
             
-        if key == Key.esc: 
-            return False
+    if key == Key.esc: 
+        return False
     
-    with Listener(on_press=on_press) as listener:
-        listener.join()
+    if position == furthestPoint:
+        functions.update(map)
+        print("\n Congratulations, you successfully completed the maze! :D")
+        return False
+    
+with Listener(on_press = on_press) as listener:
+    listener.join()
 
     
     
