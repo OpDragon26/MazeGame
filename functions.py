@@ -1,8 +1,5 @@
 import os
-
-clears = ["cls","clear"]
-dir = [1,-1]
-turns = ["right","left"]
+import variables
 
 def createEmpty(size):
     map = [[" " for j in range(size)] for i in range(size)]
@@ -17,10 +14,10 @@ def createMapPrint(map):
     return '\n'.join([' '.join(row) for row in map])
 
 def clear(osClear): # 0 - windows, 1 - linux
-    os.system(clears[osClear])
+    os.system(variables.clears[osClear])
 
 def turn(direction,turn):
-    direction += dir[turns.index(turn)]
+    direction += turn
     if direction < 0:
         return 3
     if direction > 3:
