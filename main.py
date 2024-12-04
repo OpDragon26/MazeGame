@@ -5,7 +5,7 @@ from pynput.keyboard import Key, Listener
 directionOffsets = ((-2,0),(0,2),(2,0),(0,-2)) # (y,x)
 directOffsets = ((-1,0),(0,1),(1,0),(0,-1)) # (y,x)
 
-size = 51 # must be odd
+size = int(input("Input the size of the maze (must be odd and above 9): ")) # must be odd
 
 map = functions.createEmpty(size)
 
@@ -39,7 +39,9 @@ while True:
     if position == [2,2]:
         break 
 
-print(functions.createMapPrint(map))
+map = functions.replaceMap(map)
+
+functions.update(map)
 
 if False:
     def on_press(key):
