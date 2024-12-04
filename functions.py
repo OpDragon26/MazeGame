@@ -1,5 +1,6 @@
 import os
-import variables
+
+clears = ("cls","clear")
 
 def createEmpty(size):
     map = [["#" for j in range(size)] for i in range(size)]
@@ -14,7 +15,7 @@ def createMapPrint(map):
     return '\n'.join([' '.join(row) for row in map])
 
 def clear(osClear): # 0 - windows, 1 - linux
-    os.system(variables.clears[osClear])
+    os.system(clears[osClear])
 
 def turn(direction,turn):
     direction += turn
