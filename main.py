@@ -1,6 +1,7 @@
 import functions
 import random
 from pynput.keyboard import Key, Listener
+from copy import deepcopy as copy
 
 directionOffsets = ((-2,0),(0,2),(2,0),(0,-2)) # (y,x)
 directOffsets = ((-1,0),(0,1),(1,0),(0,-1)) # (y,x)
@@ -12,6 +13,10 @@ map = functions.createEmpty(size)
 position = [2,2] # y,x
 direction = random.randint(0,3) # from 0 to 3 clockwise, from the top
 
+distance = 0
+highestDistance = 0
+furthestPoint = [2,2]
+
 map[position[0]][position[1]] = "."
 
 while True:
@@ -22,6 +27,11 @@ while True:
 
             position[0] += directionOffsets[direction][0]
             position[1] += directionOffsets[direction][1]
+
+            distance += 1
+            if distance > highestDistance:
+                highestDistance = copy(distance)
+                furthestPoint = copy(position)
 
             direction = functions.turn(direction,random.randint(-1,1))
 
@@ -35,8 +45,11 @@ while True:
 
         position[0] += directionOffsets[wayBack][0]
         position[1] += directionOffsets[wayBack][1]
+
+        distance -= 1
     
     if position == [2,2]:
+        map[furthestPoint[0]][furthestPoint[1]] = "F"
         break 
 
 map = functions.replaceMap(map)

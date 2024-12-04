@@ -2,8 +2,8 @@ import os
 
 clears = ("cls","clear")
 
-replaceFrom = (".",":","+","#")
-replaceTo = (" "," ","#","#")
+replaceFrom = (".",":","+","#","F")
+replaceTo = (" "," ","#","#","⬤")
 
 def createEmpty(size):
     map = [["#" for j in range(size)] for i in range(size)]
