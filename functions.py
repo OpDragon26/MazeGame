@@ -14,12 +14,13 @@ replaceFrom = (".",":","+","#","F")
 replaceTo = (" "," ","#","#",finishCharacter)
 
 def createEmpty(size):
-    map = [["#" for j in range(size)] for i in range(size)]
-    for i in range(size):
+    map = [["#" for j in range(size[1])] for i in range(size[0])]
+    for i in range(size[1]):
         map[0][i] = "+"
-        map[size - 1][i] = "+"
+        map[size[0] - 1][i] = "+"
+    for i in range(size[0]):
         map[i][0] = "+"
-        map[i][size - 1] = "+"
+        map[i][size[1] - 1] = "+"
     return map
 
 def createMapPrint(map):
@@ -58,3 +59,12 @@ def joinRow(row):
         except:
             rowString += (row[i] + " ")
     return rowString
+
+def closestOdd(size):
+    returnSize = [size[0],int(size[1] / 2)]
+    if size[0] % 2 == 0:
+        returnSize[0] -= 1
+    if (size[1] / 2) % 2 == 0:
+        returnSize[1] -= 1
+    return (returnSize[1],returnSize[0])
+        

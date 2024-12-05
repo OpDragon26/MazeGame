@@ -3,15 +3,16 @@ import random
 from pynput.keyboard import Key, Listener
 from copy import deepcopy as copy
 import time
+import os
 
 directionOffsets = ((-2,0),(0,2),(2,0),(0,-2)) # (y,x)
 directOffsets = ((-1,0),(0,1),(1,0),(0,-1)) # (y,x)
-sizes = (9,15,21,25,31,35,45)
+sizes = ((9,9),(15,15),(21,21),(25,31),(31,41),(41,55),(45,75))
 
 while True:
     difficulty = int(input("Enter difficulty (1-7): "))
     if difficulty == 0:
-        size = int(input("Enter custom size (must be odd and larger than 7): "))
+        size = int(input("Enter custom size (must be odd and larger than 7): ")).split("-")
         break
     elif difficulty == -1:
         highscores = open("highscores.txt","w")
