@@ -3,17 +3,26 @@ import random
 from pynput.keyboard import Key, Listener
 from copy import deepcopy as copy
 import time
-import os
 
 directionOffsets = ((-2,0),(0,2),(2,0),(0,-2)) # (y,x)
 directOffsets = ((-1,0),(0,1),(1,0),(0,-1)) # (y,x)
 sizes = ((9,9),(15,15),(21,21),(25,31),(31,41),(41,55),(45,75))
 
 while True:
-    difficulty = int(input("Enter difficulty (1-7): "))
+    try:
+        difficulty = int(input("Enter difficulty (1-7): "))
+    except:
+        continue
     if difficulty == 0:
-        size = int(input("Enter custom size (must be odd and larger than 7): ")).split("-")
-        break
+        try:
+            size = [int(x) for x in input("Enter custom size (height-width) (must be odd and larger than 7): ").split("-")]
+        except: 
+            print("Input is in an incorrect format. The correct format is height-width\n")
+            continue
+        if functions.isOdd(size[0]) and functions.isOdd(size[1]) and size[0] > 6 and size[1] > 6:
+            break
+        else:
+            print("Specified size does not fit the requirements\n")
     elif difficulty == -1:
         highscores = open("highscores.txt","w")
         highscores.write('\n'.join(["99999" for i in range(7)]))
@@ -23,8 +32,7 @@ while True:
         size = sizes[difficulty - 1]
         break
     else:
-        print("\nDifficulty outside given range.")
-
+        print("\nDifficulty outside given range\n")
 
 map = functions.createEmpty(size)
 
@@ -149,7 +157,11 @@ def on_press(key):
             completionTime = str(completionTime)[:4]
 
         functions.update(map)
-        print(f"\nCongratulations, you completed a difficulty {difficulty} maze in {completionTime} seconds! :D")
+
+        if difficulty != 0:
+            print(f"\nCongratulations, you completed a difficulty {difficulty} maze in {completionTime} seconds! :D")
+        else:
+            print(f"\nCongratulations, you completed a custom {size[0]} by {size[1]} maze in {completionTime} seconds! :D")
         if newHighScore:
             if highscoreList[difficulty - 1] != 99999:
                 print(f"New high score by {str(numBy)[:len(str(int(numBy))) + 2]} seconds!")

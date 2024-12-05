@@ -60,11 +60,5 @@ def joinRow(row):
             rowString += (row[i] + " ")
     return rowString
 
-def closestOdd(size):
-    returnSize = [size[0],int(size[1] / 2)]
-    if size[0] % 2 == 0:
-        returnSize[0] -= 1
-    if (size[1] / 2) % 2 == 0:
-        returnSize[1] -= 1
-    return (returnSize[1],returnSize[0])
-        
+def isOdd(num):
+    return num % 2 == 1
