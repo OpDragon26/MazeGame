@@ -11,8 +11,13 @@ sizes = (9,15,21,25,31,35,45)
 while True:
     difficulty = int(input("Enter difficulty (1-7): "))
     if difficulty == 0:
-        size = int(input("Enter custom size: "))
+        size = int(input("Enter custom size (must be odd and larger than 7): "))
         break
+    elif difficulty == -1:
+        highscores = open("highscores.txt","w")
+        highscores.write('\n'.join(["99999" for i in range(7)]))
+        highscores.close()
+        print("Reset highscores.txt")
     elif difficulty > 0 and difficulty < 8:
         size = sizes[difficulty - 1]
         break
@@ -125,8 +130,33 @@ def on_press(key):
         map[2][2] = functions.playerCharacter
         map[furthestPoint[0]][furthestPoint[1]] = functions.finishCharacter
 
+        completionTime = time.time() - startTime
+
+        highscores = open("highscores.txt","r")
+        highscoreList = [float(score.replace("\n","")) for score in highscores.readlines()]
+        
+        newHighScore = False
+        if highscoreList[difficulty - 1] > completionTime:
+            newHighScore = True
+            numBy = highscoreList[difficulty - 1] - completionTime
+            
+        highscores.close()
+
+        if completionTime >= 100:
+            completionTime = str(completionTime)[:len(str(int(completionTime))) + 2]
+        else:
+            completionTime = str(completionTime)[:4]
+
         functions.update(map)
-        print(f"\n Congratulations, you completed a difficulty {difficulty} maze in {str(time.time() - startTime)[:4]} seconds! :D")
+        print(f"\nCongratulations, you completed a difficulty {difficulty} maze in {completionTime} seconds! :D")
+        if newHighScore:
+            if highscoreList[difficulty - 1] != 99999:
+                print(f"New high score by {str(numBy)[:len(str(int(numBy))) + 2]} seconds!")
+            highscoreList[difficulty - 1] = completionTime
+            highscores = open("highscores.txt","w")
+            highscores.write('\n'.join([str(highscoreList[i]) for i in range(7)]))
+            highscores.close()
+
         return False
     
 with Listener(on_press = on_press) as listener:
