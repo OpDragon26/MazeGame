@@ -28,11 +28,14 @@ while True:
         highscores.write('\n'.join(["99999" for i in range(7)]))
         highscores.close()
         print("Reset highscores.txt")
+        exit()
     elif difficulty > 0 and difficulty < 8:
         size = sizes[difficulty - 1]
         break
+    elif difficulty == -2:
+        exit()
     else:
-        print("\nDifficulty outside given range\n")
+        print("Difficulty outside given range\n")
 
 map = functions.createEmpty(size)
 
