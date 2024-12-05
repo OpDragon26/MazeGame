@@ -8,6 +8,8 @@ directionOffsets = ((-2,0),(0,2),(2,0),(0,-2)) # (y,x)
 directOffsets = ((-1,0),(0,1),(1,0),(0,-1)) # (y,x)
 sizes = (9,15,21,25,31,35,45)
 
+arrows = ["↑","→","↓","←"]
+
 while True:
     difficulty = int(input("Enter difficulty (1-7): "))
     if difficulty == 0:
@@ -71,8 +73,7 @@ map = functions.replaceMap(map)
 
 printedMap = copy(map)
 
-printedMap[2][2] = functions.playerCharacter
-
+printedMap[2][2] = "🯅"
 functions.update(printedMap)
 
 exploredTiles = set()
@@ -85,34 +86,34 @@ def on_press(key):
     global difficulty
 
     if key == Key.down:
-        if map[position[0] + 1][position[1]] in [" ",functions.finishCharacter]:
+        if map[position[0] + 1][position[1]] in [" ","⬤"]:
             printedMap = copy(map)
             position[0] += 1
-            printedMap[position[0]][position[1]] = functions.playerCharacter
+            printedMap[position[0]][position[1]] = "🯅"
             exploredTiles.add((position[0],position[1],2))
         functions.update(printedMap)
 
     if key == Key.up:
-        if map[position[0] - 1][position[1]] in [" ",functions.finishCharacter]:
+        if map[position[0] - 1][position[1]] in [" ","⬤"]:
             printedMap = copy(map)
             position[0] -= 1
-            printedMap[position[0]][position[1]] = functions.playerCharacter
+            printedMap[position[0]][position[1]] = "🯅"
             exploredTiles.add((position[0],position[1],0))
         functions.update(printedMap)
 
     if key == Key.right:
-        if map[position[0]][position[1] + 1] in [" ",functions.finishCharacter]:
+        if map[position[0]][position[1] + 1] in [" ","⬤"]:
             printedMap = copy(map)
             position[1] += 1
-            printedMap[position[0]][position[1]] =functions.playerCharacter
+            printedMap[position[0]][position[1]] = "🯅"
             exploredTiles.add((position[0],position[1],1))
         functions.update(printedMap)
 
     if key == Key.left:
-        if map[position[0]][position[1] - 1] in [" ",functions.finishCharacter]:
+        if map[position[0]][position[1] - 1] in [" ","⬤"]:
             printedMap = copy(map)
             position[1] -= 1
-            printedMap[position[0]][position[1]] = functions.playerCharacter
+            printedMap[position[0]][position[1]] = "🯅"
             exploredTiles.add((position[0],position[1],3))
         functions.update(printedMap)
             
@@ -122,9 +123,9 @@ def on_press(key):
     
     if position == furthestPoint:
         for tile in exploredTiles:
-            map[tile[0]][tile[1]] = functions.arrows[tile[2]]
-        map[2][2] = functions.playerCharacter
-        map[furthestPoint[0]][furthestPoint[1]] = functions.finishCharacter
+            map[tile[0]][tile[1]] = arrows[tile[2]]
+        map[2][2] = "🯅"
+        map[furthestPoint[0]][furthestPoint[1]] = "⬤"
 
         functions.update(map)
         print(f"\n Congratulations, you completed a difficulty {difficulty} maze in {str(time.time() - startTime)[:4]} seconds! :D")

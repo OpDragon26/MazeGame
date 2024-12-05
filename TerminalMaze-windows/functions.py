@@ -1,15 +1,10 @@
 import os
 
-system = 0
+system = 0 
 clears = ("cls","clear")
 
-finishCharacter = "✕"
-playerCharacter = "웃"
-
-arrows = ["↑","→","↓","←"]
-
 replaceFrom = (".",":","+","#","F")
-replaceTo = (" "," ","#","#",finishCharacter)
+replaceTo = (" "," ","#","#","⬤")
 
 def createEmpty(size):
     map = [["#" for j in range(size)] for i in range(size)]
@@ -21,12 +16,7 @@ def createEmpty(size):
     return map
 
 def createMapPrint(map):
-    map = '\n'.join([joinRow(row) for row in map])
-    for i in range(len(map)):
-        if map[i] == playerCharacter:
-            map[i - 1] = ""
-        break
-    return map
+    return '\n'.join([' '.join(row) for row in map])
 
 def clear(osClear): # 0 - windows, 1 - linux
     os.system(clears[osClear])
@@ -44,15 +34,3 @@ def replace(thing, rfrom, rto):
 
 def replaceMap(map):
     return [[replace(tile, replaceFrom, replaceTo) for tile in row ] for row in map]
-
-def joinRow(row):
-    rowString = ""
-    for i in range(len(row)):
-        try:
-            if row[i + 1] in [playerCharacter] + arrows:
-                rowString += row[i]
-            else:
-                rowString += (row[i] + " ")
-        except:
-            rowString += (row[i] + " ")
-    return rowString
