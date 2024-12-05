@@ -1,12 +1,14 @@
 import os
 
-system = 0
+system = (1,0)[os.name == "nt"]
 clears = ("cls","clear")
 
 finishCharacter = "✕"
 playerCharacter = "웃"
 
 arrows = ["↑","→","↓","←"]
+
+disallowedCharacters = (arrows + [playerCharacter],[playerCharacter])[system]
 
 replaceFrom = (".",":","+","#","F")
 replaceTo = (" "," ","#","#",finishCharacter)
@@ -49,7 +51,7 @@ def joinRow(row):
     rowString = ""
     for i in range(len(row)):
         try:
-            if row[i + 1] in [playerCharacter] + arrows:
+            if row[i + 1] in disallowedCharacters:
                 rowString += row[i]
             else:
                 rowString += (row[i] + " ")

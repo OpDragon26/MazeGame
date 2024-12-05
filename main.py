@@ -20,7 +20,6 @@ while True:
         print("\nDifficulty outside given range.")
 
 
-
 map = functions.createEmpty(size)
 
 position = [2,2] # y,x
