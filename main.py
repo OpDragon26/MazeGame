@@ -1,6 +1,6 @@
 import functions
 import random
-from pynput.keyboard import Key, Listener
+from pynput.keyboard import *
 from copy import deepcopy as copy
 import time
 
@@ -100,7 +100,7 @@ def on_press(key):
     global furthestPoint
     global difficulty
 
-    if key == Key.down:
+    if key in [Key.down,KeyCode.from_char("s"),KeyCode.from_char("j")]:
         if map[position[0] + 1][position[1]] in [" ",functions.finishCharacter]:
             printedMap = copy(map)
             position[0] += 1
@@ -108,7 +108,7 @@ def on_press(key):
             exploredTiles.add((position[0],position[1],2))
         functions.update(printedMap)
 
-    if key == Key.up:
+    if key in [Key.up,KeyCode.from_char("w"),KeyCode.from_char("k")]:
         if map[position[0] - 1][position[1]] in [" ",functions.finishCharacter]:
             printedMap = copy(map)
             position[0] -= 1
@@ -116,7 +116,7 @@ def on_press(key):
             exploredTiles.add((position[0],position[1],0))
         functions.update(printedMap)
 
-    if key == Key.right:
+    if key in [Key.right,KeyCode.from_char("d"),KeyCode.from_char("l")]:
         if map[position[0]][position[1] + 1] in [" ",functions.finishCharacter]:
             printedMap = copy(map)
             position[1] += 1
@@ -124,7 +124,7 @@ def on_press(key):
             exploredTiles.add((position[0],position[1],1))
         functions.update(printedMap)
 
-    if key == Key.left:
+    if key in [Key.left,KeyCode.from_char("a"),KeyCode.from_char("h")]:
         if map[position[0]][position[1] - 1] in [" ",functions.finishCharacter]:
             printedMap = copy(map)
             position[1] -= 1
