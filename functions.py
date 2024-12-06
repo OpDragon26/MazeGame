@@ -10,8 +10,8 @@ arrows = ["↑","→","↓","←"]
 
 disallowedCharacters = (arrows + [playerCharacter],[playerCharacter])[system]
 
-replaceFrom = (".",":","+","#","F")
-replaceTo = (" "," ","#","#",finishCharacter)
+replaceFrom = (".","+","#","F")
+replaceTo = (" ","#","#",finishCharacter)
 
 def createEmpty(size):
     map = [["#" for j in range(size[1])] for i in range(size[0])]
@@ -21,7 +21,7 @@ def createEmpty(size):
     for i in range(size[0]):
         map[i][0] = "+"
         map[i][size[1] - 1] = "+"
-    return map
+    return (map,[[0 for j in range(size[1])] for i in range(size[0])])
 
 def createMapPrint(map):
     map = '\n'.join([joinRow(row) for row in map])
@@ -53,11 +53,11 @@ def joinRow(row):
     for i in range(len(row)):
         try:
             if row[i + 1] in disallowedCharacters:
-                rowString += row[i]
+                rowString += str(row[i])
             else:
-                rowString += (row[i] + " ")
+                rowString += (str(row[i]) + " ")
         except:
-            rowString += (row[i] + " ")
+            rowString += (str(row[i]) + " ")
     return rowString
 
 def isOdd(num):

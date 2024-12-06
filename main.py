@@ -38,55 +38,51 @@ while True:
         print("Difficulty outside given range\n")
 
 map = functions.createEmpty(size)
+distances = map[1]
+map = map[0]
 
 position = [2,2] # y,x
 direction = random.randint(0,3) # from 0 to 3 clockwise, from the top
 
-distance = 0
 highestDistance = 0
 furthestPoint = [2,2]
 
 map[position[0]][position[1]] = "."
 
-startTime = time.time()
+iterations = 0
+
+visitedTiles = set()
 
 while True:
-    for i in range(4):
+    iterations += 1
+    visitedTiles.add((position[0],position[1]))
+
+    direction = functions.turn(direction,random.randint(-1,1))
+    if map[position[0] + directionOffsets[direction][0]][position[1] + directionOffsets[direction][1]] != "+":
         if map[position[0] + directionOffsets[direction][0]][position[1] + directionOffsets[direction][1]] == "#":
-            map[position[0] + directionOffsets[direction][0]][position[1] + directionOffsets[direction][1]] = "."
             map[position[0] + directOffsets[direction][0]][position[1] + directOffsets[direction][1]] = "."
+            distances[position[0] + directionOffsets[direction][0]][position[1] + directionOffsets[direction][1]] = distances[position[0]][position[1]] + 1
 
-            position[0] += directionOffsets[direction][0]
-            position[1] += directionOffsets[direction][1]
+            if distances[position[0]][position[1]] + 1 > highestDistance:
+                furthestPoint = [position[0] + directionOffsets[direction][0],position[1] + directionOffsets[direction][1]]
+                highestDistance = distances[position[0]][position[1]] + 1
 
-            distance += 1
-            if distance > highestDistance:
-                highestDistance = copy(distance)
-                furthestPoint = copy(position)
-
-            direction = functions.turn(direction,random.randint(-1,1))
-
+        position = [position[0] + directionOffsets[direction][0],position[1] + directionOffsets[direction][1]]
+        map[position[0]][position[1]] = "."
+        
+        if len(visitedTiles) == int((len(map) - 3)/2) * int((len(map[0]) - 3)/2):
+            map[furthestPoint[0]][furthestPoint[1]] = "F"
             break
-        else:
-            direction = functions.turn(direction,1)
-    else:
-        wayBack = [map[position[0] + directOffsets[i][0]][position[1] + directOffsets[i][1]] == "." for i in range(4)].index(True)
-        map[position[0]][position[1]] = ":"
-        map[position[0] + directOffsets[wayBack][0]][position[1] + directOffsets[wayBack][1]] = ":"
 
-        position[0] += directionOffsets[wayBack][0]
-        position[1] += directionOffsets[wayBack][1]
-
-        distance -= 1
-    
-    if position == [2,2]:
-        map[furthestPoint[0]][furthestPoint[1]] = "F"
-        break 
+startTime = time.time()
 
 map = functions.replaceMap(map)
 
+functions.update(map)
+
 printedMap = copy(map)
 
+position = [2,2]
 printedMap[2][2] = functions.playerCharacter
 
 functions.update(printedMap)
