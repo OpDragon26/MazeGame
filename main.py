@@ -116,7 +116,7 @@ def on_press(key):
         if map[position[0]][position[1] + 1] in [" ",functions.finishCharacter]:
             printedMap = copy(map)
             position[1] += 1
-            printedMap[position[0]][position[1]] =functions.playerCharacter
+            printedMap[position[0]][position[1]] = functions.playerCharacter
             exploredTiles.add((position[0],position[1],1))
         functions.update(printedMap)
 

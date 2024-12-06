@@ -3,7 +3,7 @@ import os
 system = (1,0)[os.name == "nt"]
 clears = ("cls","clear")
 
-finishCharacter = "✕"
+finishCharacter = "⬤"
 playerCharacter = "웃"
 
 arrows = ["↑","→","↓","←"]
@@ -46,7 +46,7 @@ def replace(thing, rfrom, rto):
     return rto[rfrom.index(thing)]
 
 def replaceMap(map):
-    return [[replace(tile, replaceFrom, replaceTo) for tile in row ] for row in map]
+    return [[replace(tile, replaceFrom, replaceTo) for tile in row] for row in map]
 
 def joinRow(row):
     rowString = ""
