@@ -13,7 +13,7 @@ A maze game played in the terminal
  ● A terminal emulator in which pynput works (for me this was Tilda) or VSCode
 
 ## Controls
- ● movement: arrow keys<br/>
+ ● movement: arrow keys, WASD, Vim controls<br/>
  ● difficulty selection:<br/>
     1  - 9 by 9<br/>
     2  - 15 by 15<br/>
