@@ -3,7 +3,7 @@ A maze game played in the terminal
 
 ## Requirements
  ● pynput<br/>
- ● Run the program from its directory (cd path then python3 main.py instead of python3 path/main.py)
+ ● Run the program directly from its directory (cd path then python3 main.py instead of python3 path/main.py)
  
 ### Windows specific
  ● PowerShell/cmd font: MS Gothic<br/>
@@ -26,3 +26,6 @@ A maze game played in the terminal
    -1 - reset highscores<br/>
    -2 - quit program (KeyboardInterrupt doesn't work during difficulty selection)<br/>
  ● exit: esc<br/>
+ 
+### Maze generation algorithm
+ ● Slightly modified Aldous-Broder
