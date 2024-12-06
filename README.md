@@ -6,7 +6,7 @@ A maze game played in the terminal
  ● Run the program from its directory (cd path then python3 main.py instead of python3 path/main.py)
  
 ### Windows specific
- ● PowerShell/cmd font: *font* <br/>
+ ● PowerShell/cmd font: MS Gothic<br/>
  ● Should not be run in VSCode
  
 ### Linux specific
