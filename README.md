@@ -26,6 +26,6 @@ A maze game played in the terminal
    -1 - reset highscores<br/>
    -2 - quit program (KeyboardInterrupt doesn't work during difficulty selection)<br/>
  ● exit: esc<br/>
- 
+
 ### Maze generation algorithm
- ● Slightly modified Aldous-Broder
+   Slightly modified Aldous-Broder
