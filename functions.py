@@ -34,6 +34,9 @@ def createMapPrint(map):
 def clear(osClear): # 0 - windows, 1 - linux
     os.system(clears[osClear])
 
+def turn(direction,turn):
+    return (direction + turn + 4) % 4
+
 def update(map):
     mapPrint = createMapPrint(map)
     clear(system)

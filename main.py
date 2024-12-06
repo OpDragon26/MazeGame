@@ -57,7 +57,7 @@ while True:
     iterations += 1
     visitedTiles.add((position[0],position[1]))
 
-    direction = random.randint(0,3)
+    direction = functions.turn(direction,random.randint(-1,1))
     if map[position[0] + directionOffsets[direction][0]][position[1] + directionOffsets[direction][1]] != "+":
         if map[position[0] + directionOffsets[direction][0]][position[1] + directionOffsets[direction][1]] == "#":
             map[position[0] + directOffsets[direction][0]][position[1] + directOffsets[direction][1]] = "."
